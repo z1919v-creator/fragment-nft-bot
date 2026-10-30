@@ -1,0 +1,20 @@
+# render.yaml — настройка хостинга Render (создаётся автоматически).
+#
+# Как использовать: файл лежит в репозитории, и при подключении репозитория
+# на render.com через «New + → Blueprint» всё настроится само — нужно будет
+# только вставить значения BOT_TOKEN и OWNER_ID.
+services:
+  - type: web
+    name: fragment-nft-bot
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: BOT_TOKEN
+        sync: false          # спросит при создании (вставь токен от @BotFather)
+      - key: OWNER_ID
+        sync: false          # твой Telegram ID (бот покажет его в /start)
